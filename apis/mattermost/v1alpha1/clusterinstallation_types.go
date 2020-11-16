@@ -82,6 +82,9 @@ type ClusterInstallationSpec struct {
 	ResourceLabels map[string]string `json:"resourceLabels,omitempty"`
 
 	// +optional
+	PodAnnotations map[string]string `json:"podAnnotations,omitempty"`
+
+	// +optional
 	IngressAnnotations map[string]string `json:"ingressAnnotations,omitempty"`
 	// Optional environment variables to set in the Mattermost application pods.
 	// +optional

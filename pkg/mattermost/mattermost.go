@@ -404,7 +404,7 @@ func GenerateDeployment(mattermost *mattermostv1alpha1.ClusterInstallation, dbIn
 	// Mattermost License
 	volumeLicense := []corev1.Volume{}
 	volumeMountLicense := []corev1.VolumeMount{}
-	podAnnotations := map[string]string{}
+	podAnnotations := mattermost.Spec.PodAnnotations
 	if len(mattermost.Spec.MattermostLicenseSecret) != 0 {
 		envVarGeneral = append(envVarGeneral, corev1.EnvVar{
 			Name:  "MM_SERVICESETTINGS_LICENSEFILELOCATION",
@@ -431,7 +431,13 @@ func GenerateDeployment(mattermost *mattermostv1alpha1.ClusterInstallation, dbIn
 			"prometheus.io/path":   "/metrics",
 			"prometheus.io/port":   "8067",
 		}
+
+		for k, v := range mattermost.Spec.PodAnnotations {
+			podAnnotations[k] = v;
+		}
 	}
+
+	
 
 	// EnvVars Section
 	envVars := []corev1.EnvVar{}
